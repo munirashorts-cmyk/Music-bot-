@@ -8,12 +8,12 @@ from pyrogram import filters
 load_dotenv()
 
 # ── Core bot config ────────────────────────────────────────────────────────────
-API_ID = int(getenv(""))
-API_HASH = getenv("API_HASH", "26100c77cee02e5e34b2bbee58440f86")
+API_ID = int(getenv("33632598"))
+API_HASH = getenv("f5845a1c5a154e4e13747006226e0875")
 BOT_TOKEN = getenv("8472471237:AAGY1oeuJpwEkmXt6d4BTkU6lX0urTQC0jw")
 
-OWNER_ID = int(getenv("OWNER_ID", 7044783841))
-OWNER_USERNAME = getenv("OWNER_USERNAME")
+OWNER_ID = int(getenv("8368957390")
+OWNER_USERNAME = getenv("@DoraemonBro")
 BOT_USERNAME = getenv("@Shindoraxmusic_bot")
 BOT_NAME = getenv("BOT_NAME", "˹Shindora ✘ Music˼ ♪")
 ASSUSERNAME = getenv("shindoraxmusic")
