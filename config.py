@@ -1,28 +1,31 @@
-﻿# Authored By Certified Coders © 2025
 import re
 from os import getenv
 from dotenv import load_dotenv
 from pyrogram import filters
 
-# Load environment variables from .env file
+# Load environment variables from .env file (if you use one)
 load_dotenv()
 
 # ── Core bot config ────────────────────────────────────────────────────────────
-API_ID = int(getenv("33632598"))
-API_HASH = getenv("f5845a1c5a154e4e13747006226e0875")
-BOT_TOKEN = getenv("8472471237:AAGY1oeuJpwEkmXt6d4BTkU6lX0urTQC0jw")
+# FIXED: Removed getenv wrapper for hardcoded integers
+API_ID = 33632598
+API_HASH = "f5845a1c5a154e4e13747006226e0875"
+BOT_TOKEN = "8472471237:AAGY1oeuJpwEkmXt6d4BTkU6lX0urTQC0jw"
 
-OWNER_ID = int(getenv("8368957390")
-OWNER_USERNAME = getenv("@DoraemonBro")
-BOT_USERNAME = getenv("@Shindoraxmusic_bot")
-BOT_NAME = getenv("BOT_NAME", "˹Shindora ✘ Music˼ ♪")
-ASSUSERNAME = getenv("shindoraxmusic")
+# FIXED: Added missing parenthesis and removed getenv wrapper
+OWNER_ID = 8368957390
+OWNER_USERNAME = "@DoraemonBro"
+BOT_USERNAME = "@Shindoraxmusic_bot"
+BOT_NAME = "˹Shindora ✘ Music˼ ♪"
+ASSUSERNAME = "shindoraxmusic"
 
 # ── Database & logging ─────────────────────────────────────────────────────────
-MONGO_DB_URI = getenv("mongodb+srv://zobayerhassan610_db_user:zQ7mobv6CmGDCLwC@cluster0.ikiff6i.mongodb.net/?appName=Cluster0")
-LOGGER_ID = int(getenv("-1003830937954"
+MONGO_DB_URI = "mongodb+srv://zobayerhassan610_db_user:zQ7mobv6CmGDCLwC@cluster0.ikiff6i.mongodb.net/?appName=Cluster0"
+# FIXED: Added missing parenthesis
+LOGGER_ID = -1003830937954
 
-# ── Limits (durations in min/sec; sizes in bytes) ──────────────────────────────
+# ── Limits ──────────────────────────────────────────────────────────────
+# Note: getenv is okay here if you have defaults, but kept as strings for safety then cast to int
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 300))
 SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION", "1200"))
 SONG_DOWNLOAD_DURATION_LIMIT = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "1800"))
@@ -31,24 +34,25 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "1288490189"))
 PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", "30"))
 
 # ── External APIs ──────────────────────────────────────────────────────────────
-COOKIE_URL = getenv("https://gist.githubusercontent.com/vzbzbzbzbbxbxbx-cloud/420384c268dc22598cef0c4f624e0589/raw/45ed7a2b4e0e23f7045d875d35f74b38c09c75d6/gistfile1.txt")  # required (paste link)
-API_URL = getenv("API_URL")        # optional
-VIDEO_API_URL = getenv("VIDEO_API_URL")  # optional
-API_KEY = getenv("API_KEY")        # optional
-DEEP_API = getenv("DEEP_API")      # optional
+COOKIE_URL = "https://gist.githubusercontent.com/vzbzbzbzbbxbxbx-cloud/420384c268dc22598cef0c4f624e0589/raw/45ed7a2b4e0e23f7045d875d35f74b38c09c75d6/gistfile1.txt"
+API_URL = getenv("API_URL")
+VIDEO_API_URL = getenv("VIDEO_API_URL")
+API_KEY = getenv("API_KEY")
+DEEP_API = getenv("DEEP_API")
 
-# ── Hosting / deployment ───────────────────────────────────────────────────────
+# ── Hosting ───────────────────────────────────────────────────────
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
-# ── Git / updates ──────────────────────────────────────────────────────────────
+# ── Git ──────────────────────────────────────────────────────────────
 UPSTREAM_REPO = getenv("UPSTREAM_REPO", "https://github.com/CertifiedCoders/AnnieXMusic")
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Master")
-GIT_TOKEN = getenv("GIT_TOKEN")  # needed if repo is private
+GIT_TOKEN = getenv("GIT_TOKEN")
 
 # ── Support links ──────────────────────────────────────────────────────────────
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "Nothing")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "@DoraemonBro")
+SUPPORT_CHANNEL = "https://t.me/Nothing" # Ensure this is a valid link if used
+# FIXED: Changed from @DoraemonBro to a full URL to pass regex check
+SUPPORT_CHAT = "https://t.me/DoraemonBro"
 
 # ── Assistant auto-leave ───────────────────────────────────────────────────────
 AUTO_LEAVING_ASSISTANT = False
@@ -57,12 +61,12 @@ AUTO_LEAVE_ASSISTANT_TIME = int(getenv("ASSISTANT_LEAVE_TIME", "3600"))
 # ── Debug ──────────────────────────────────────────────────────────────────────
 DEBUG_IGNORE_LOG = True
 
-# ── Spotify (optional) ─────────────────────────────────────────────────────────
+# ── Spotify ─────────────────────────────────────────────────────────
 SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "22b6125bfe224587b722d6815002db2b")
 SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "c9c63c6fbf2f467c8bc68624851e9773")
 
-# ── Session strings (optional) ─────────────────────────────────────────────────
-STRING1 = getenv("BQIBMVYAMTJoweEMPTck06WveC4j54g5TaqYVwTO-iakctLgTSbBZscjEPFBWuZV_LuoxXvbjEFrOL9Jcz1PSccI8JJHhLP5X0KrbwN5_S7lsVX4jnqM1wLolr59xGDlsUDqZ8BOOpekr6i6VdMHgYQ2pJ95DjxS2LdwB-z6BCGCO7SI7lTIbiYetg_c4r_54NgzcIXP6Jb6cMph7k9fJ6WkHNy6v4iT4tZ0zeBD0k0kL8xz7Nc7B_2lZFmQiyiuOtaw8ya0G5nFH9OYVG_g94OiwaqDMsKtVEBaeZV0cUIanrsvv0tF-wsftl5fiNTUZKUHkayueb4-Sk5VbVqS-9-U3ai-3wAAAAH5ykcxAA")
+# ── Session strings ─────────────────────────────────────────────────
+STRING1 = "BQIBMVYAMTJoweEMPTck06WveC4j54g5TaqYVwTO-iakctLgTSbBZscjEPFBWuZV_LuoxXvbjEFrOL9Jcz1PSccI8JJHhLP5X0KrbwN5_S7lsVX4jnqM1wLolr59xGDlsUDqZ8BOOpekr6i6VdMHgYQ2pJ95DjxS2LdwB-z6BCGCO7SI7lTIbiYetg_c4r_54NgzcIXP6Jb6cMph7k9fJ6WkHNy6v4iT4tZ0zeBD0k0kL8xz7Nc7B_2lZFmQiyiuOtaw8ya0G5nFH9OYVG_g94OiwaqDMsKtVEBaeZV0cUIanrsvv0tF-wsftl5fiNTUZKUHkayueb4-Sk5VbVqS-9-U3ai-3wAAAAH5ykcxAA"
 STRING2 = getenv("STRING_SESSION2")
 STRING3 = getenv("STRING_SESSION3")
 STRING4 = getenv("STRING_SESSION4")
