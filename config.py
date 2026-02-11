@@ -50,7 +50,7 @@ UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Master")
 GIT_TOKEN = getenv("GIT_TOKEN")
 
 # ── Support links ──────────────────────────────────────────────────────────────
-SUPPORT_CHANNEL = "https://t.me/Nothing" # Ensure this is a valid link if used
+SUPPORT_CHANNEL = "https://t.me/nothingheloo" # Ensure this is a valid link if used
 # FIXED: Changed from @DoraemonBro to a full URL to pass regex check
 SUPPORT_CHAT = "https://t.me/DoraemonBro"
 
