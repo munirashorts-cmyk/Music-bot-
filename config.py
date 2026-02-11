@@ -20,7 +20,7 @@ ASSUSERNAME = getenv("shindoraxmusic")
 
 # ── Database & logging ─────────────────────────────────────────────────────────
 MONGO_DB_URI = getenv("mongodb+srv://zobayerhassan610_db_user:zQ7mobv6CmGDCLwC@cluster0.ikiff6i.mongodb.net/?appName=Cluster0")
-LOGGER_ID = int(getenv("LOGGER_ID"
+LOGGER_ID = int(getenv("-1003830937954"
 
 # ── Limits (durations in min/sec; sizes in bytes) ──────────────────────────────
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 300))
@@ -31,7 +31,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "1288490189"))
 PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", "30"))
 
 # ── External APIs ──────────────────────────────────────────────────────────────
-COOKIE_URL = getenv("COOKIE_URL")  # required (paste link)
+COOKIE_URL = getenv("https://gist.githubusercontent.com/vzbzbzbzbbxbxbx-cloud/420384c268dc22598cef0c4f624e0589/raw/45ed7a2b4e0e23f7045d875d35f74b38c09c75d6/gistfile1.txt")  # required (paste link)
 API_URL = getenv("API_URL")        # optional
 VIDEO_API_URL = getenv("VIDEO_API_URL")  # optional
 API_KEY = getenv("API_KEY")        # optional
