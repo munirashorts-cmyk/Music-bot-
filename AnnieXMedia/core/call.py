@@ -124,8 +124,8 @@ class Call:
             return
         try:
             await assistant.leave_call(chat_id)
-        except Exception:
-            pass
+        except Exception as e:
+    LOGGER(__name__).error(f"[VC-ERROR] {type(e).__name__}: {e}")
         finally:
             self.active_calls.discard(chat_id)
 
@@ -146,8 +146,8 @@ class Call:
             return
         try:
             await assistant.leave_call(chat_id)
-        except Exception:
-            pass
+        except Exception as e:
+    LOGGER(__name__).error(f"[VC-ERROR] {type(e).__name__}: {e}")
         finally:
             self.active_calls.discard(chat_id)
 
@@ -156,7 +156,12 @@ class Call:
     async def skip_stream(self, chat_id: int, link: str, video: Union[bool, str] = None, image: Union[bool, str] = None) -> None:
         assistant = await group_assistant(self, chat_id)
         stream = dynamic_media_stream(path=link, video=bool(video))
-        await assistant.play(chat_id, stream)
+        try:
+    await assistant.play(chat_id, stream)
+except FloodWait as e:
+    LOGGER(__name__).warning(f"FloodWait {e.value}s while playing, retrying...")
+    await asyncio.sleep(e.value)
+    await assistant.play(chat_id, stream)
 
     @capture_internal_err
     async def vc_users(self, chat_id: int) -> list:
@@ -170,7 +175,12 @@ class Call:
         ffmpeg_params = f"-ss {to_seek} -to {duration}"
         is_video = mode == "video"
         stream = dynamic_media_stream(path=file_path, video=is_video, ffmpeg_params=ffmpeg_params)
-        await assistant.play(chat_id, stream)
+        try:
+    await assistant.play(chat_id, stream)
+except FloodWait as e:
+    LOGGER(__name__).warning(f"FloodWait {e.value}s while playing, retrying...")
+    await asyncio.sleep(e.value)
+    await assistant.play(chat_id, stream)
 
     @capture_internal_err
     async def speedup_stream(self, chat_id: int, file_path: str, speed: float, playing: list) -> None:
@@ -242,7 +252,11 @@ class Call:
         stream = dynamic_media_stream(path=link, video=bool(video))
 
         try:
-            await assistant.play(chat_id, stream)
+    await assistant.play(chat_id, stream)
+except FloodWait as e:
+    LOGGER(__name__).warning(f"FloodWait {e.value}s while playing, retrying...")
+    await asyncio.sleep(e.value)
+    await assistant.play(chat_id, stream)
         except (NoActiveGroupCall, ChatAdminRequired):
             raise AssistantErr(_["call_8"])
         except NoAudioSourceFound:
@@ -262,11 +276,8 @@ class Call:
             await add_active_video_chat(chat_id)
 
         if await is_autoend():
-            counter[chat_id] = {}
-            users = len(await assistant.get_participants(chat_id))
-            if users == 1:
-                autoend[chat_id] = datetime.now() + timedelta(minutes=1)
-
+    counter[chat_id] = {}
+    users = 2
 
     @capture_internal_err
     async def play(self, client, chat_id: int) -> None:
@@ -287,8 +298,8 @@ class Call:
                             await client.leave_call(chat_id)
                         except NoActiveGroupCall:
                             pass
-                        except Exception:
-                            pass
+                        except Exception as e:
+    LOGGER(__name__).error(f"[VC-ERROR] {type(e).__name__}: {e}")
                         finally:
                             self.active_calls.discard(chat_id)
                     return
@@ -508,10 +519,13 @@ class Call:
         )
 
         async def unified_update_handler(client, update: Update) -> None:
-            if isinstance(update, StreamEnded):
-                if update.stream_type == StreamEnded.Type.AUDIO:
-                    assistant = await group_assistant(self, update.chat_id)
-                    await self.play(assistant, update.chat_id)
+    if isinstance(update, StreamEnded):
+        try:
+            if update.stream_type == StreamEnded.Type.AUDIO:
+                assistant = await group_assistant(self, update.chat_id)
+                await self.play(assistant, update.chat_id)
+        except Exception as e:
+            LOGGER(__name__).error(f"StreamEnded Handler Error: {e}")
             
             elif isinstance(update, ChatUpdate):
                 status = update.status
