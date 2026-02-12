@@ -16,7 +16,7 @@ BOT_TOKEN = "8472471237:AAGY1oeuJpwEkmXt6d4BTkU6lX0urTQC0jw"
 OWNER_ID = 8368957390
 OWNER_USERNAME = "@DoraemonBro"
 BOT_USERNAME = "@Shindoraxmusic_bot"
-BOT_NAME = "˹Shindora ✘ Music˼ ♪"
+BOT_NAME = "˹𝙎𝙃𝙄𝙉𝘿𝙊𝙍𝘼 ✘ 𝙈𝙐𝙎𝙄𝘾˼ ♪"
 ASSUSERNAME = "shindoraxmusic"
 
 # ── Database & logging ─────────────────────────────────────────────────────────
